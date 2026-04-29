@@ -1043,3 +1043,62 @@ input:-webkit-autofill:active {
   .section-circle__title { font-size: 28px; }
   .form-block__title { font-size: 26px; }
 }
+
+/* ============================================================
+   GSAP — initial hidden states (only while .gsap-pending is set)
+   The flag is added by an inline <head> script and removed by
+   GSAP once it has captured these states inline (so removing the
+   class does not flash the elements). A 2.5s timeout in the head
+   script guarantees nothing stays invisible if JS fails.
+   No layout shift: only opacity / filter / clip-path are altered.
+   ============================================================ */
+html.gsap-pending .hero__video,
+html.gsap-pending .hero__headline,
+html.gsap-pending .hero__cta,
+html.gsap-pending .hero__logo,
+html.gsap-pending .section-circle__img-left,
+html.gsap-pending .section-circle__img-right,
+html.gsap-pending .section-circle__title,
+html.gsap-pending .section-circle__subtitle,
+html.gsap-pending .benefits,
+html.gsap-pending .benefit,
+html.gsap-pending .section-form__img,
+html.gsap-pending .form-block__title,
+html.gsap-pending .vip-input,
+html.gsap-pending .vip-form__cta,
+html.gsap-pending .footer__logo,
+html.gsap-pending .footer__tagline,
+html.gsap-pending .footer__socials,
+html.gsap-pending .footer__copyright {
+  opacity: 0;
+}
+
+/* Hint the compositor for the parallax-scrubbed elements only */
+.watermark,
+.section-form__img {
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.gsap-pending .hero__video,
+  html.gsap-pending .hero__headline,
+  html.gsap-pending .hero__cta,
+  html.gsap-pending .hero__logo,
+  html.gsap-pending .section-circle__img-left,
+  html.gsap-pending .section-circle__img-right,
+  html.gsap-pending .section-circle__title,
+  html.gsap-pending .section-circle__subtitle,
+  html.gsap-pending .benefits,
+  html.gsap-pending .benefit,
+  html.gsap-pending .section-form__img,
+  html.gsap-pending .form-block__title,
+  html.gsap-pending .vip-input,
+  html.gsap-pending .vip-form__cta,
+  html.gsap-pending .footer__logo,
+  html.gsap-pending .footer__tagline,
+  html.gsap-pending .footer__socials,
+  html.gsap-pending .footer__copyright { opacity: 1; }
+
+  .watermark,
+  .section-form__img { will-change: auto; }
+}

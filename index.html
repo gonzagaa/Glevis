@@ -12,6 +12,27 @@
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="style.css" />
+
+  <!-- GSAP + ScrollTrigger (premium animations) -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+  <!-- Pre-flag for hiding initial state without FOUC.
+       Skipped if the user prefers reduced motion.
+       Auto-clears after 2.5s as a hard failsafe so content can never stay
+       invisible if GSAP / script.js fails to run. -->
+  <script>
+    (function () {
+      try {
+        if (window.matchMedia &&
+            window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        document.documentElement.classList.add('gsap-pending');
+        setTimeout(function () {
+          document.documentElement.classList.remove('gsap-pending');
+        }, 2500);
+      } catch (e) { /* never block render */ }
+    })();
+  </script>
 </head>
 <body>
   <main class="page">
@@ -172,7 +193,7 @@ Você vem?</h2>
 Estilo que acompanha seu ritmo.</p>
 
         <div class="footer__socials" aria-label="Redes sociais">
-          <a href="#" aria-label="Instagram">
+          <a target="_blank" href="https://www.instagram.com/glevismovement/" aria-label="Instagram">
             <img src="assets/instagram.png" alt="Instagram" loading="lazy" />
           </a>
           <a href="#" aria-label="WhatsApp">
