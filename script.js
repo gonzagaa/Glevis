@@ -38,9 +38,6 @@ const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       errorEl = document.createElement('p');
       errorEl.className = 'vip-form__error';
       errorEl.setAttribute('role', 'alert');
-      errorEl.style.color = '#b00020';
-      errorEl.style.margin = '0.5rem 0';
-      errorEl.style.fontSize = '0.95rem';
       button.parentNode.insertBefore(errorEl, button);
     }
     errorEl.textContent = message;
@@ -57,16 +54,21 @@ const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   }
 
   function showSuccess() {
-    const wrapper = form.parentNode;
     const success = document.createElement('div');
     success.className = 'vip-form__success';
     success.setAttribute('role', 'status');
+    success.setAttribute('aria-live', 'polite');
     success.innerHTML = `
-      <h3 style="margin:0 0 0.5rem 0;">Pronto!</h3>
-      <p style="margin:0;">Seu acesso VIP foi garantido. Fique de olho no seu email.</p>
+      <span class="vip-form__success-rule" aria-hidden="true"></span>
+      <h3 class="vip-form__success-title">Você está dentro.</h3>
+      <p class="vip-form__success-message">
+        O convite VIP chega no seu email em instantes.<br>
+        Fique de olho — o movimento começa em breve.
+      </p>
+      <span class="vip-form__success-signature" aria-hidden="true">— Glevis</span>
     `;
     form.replaceWith(success);
-    wrapper && wrapper.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    success.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 
   form.addEventListener('submit', async (event) => {
