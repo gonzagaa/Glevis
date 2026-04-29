@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GLEVIS - Vista o seu movimento. Sinta a sua essência.</title>
+  <meta name="description" content="Faça parte do círculo VIP da GLEVIS antes do lançamento. Acesso antecipado, spoilers exclusivos e comunidade." />
+
+  <!-- Fonts: Manrope as TT Fors Trial fallback (closest free grotesque) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="page">
+
+    <!-- ============================================================
+         HERO
+         ============================================================ -->
+    <section class="hero" aria-label="Glevis — apresentação">
+      <video
+        class="hero__video"
+        src="assets/VIDEO-HERO (1).mp4"
+        autoplay
+        loop
+        muted
+        playsinline
+        preload="auto"
+        aria-hidden="true"
+      ></video>
+      <div class="hero__layer">
+        <div class="hero__content">
+          <h1 class="hero__headline">Vista o seu <strong>movimento</strong>.
+Sinta a sua <strong>essência</strong>.</h1>
+
+          <button class="hero__cta" type="button" data-cta="hero" aria-label="Garantir acesso antecipado" style="justify-content: center">
+            Garantir acesso antecipado!
+          </button>
+
+          <img class="hero__logo" src="assets/logo-hero.svg" alt="Glevis" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 1 — círculo / pré-save
+         ============================================================ -->
+    <section class="section-circle" aria-labelledby="circle-title">
+      <div class="section__layer">
+        <img class="watermark" src="assets/logo-large.svg" alt="" aria-hidden="true" loading="lazy" />
+
+        <div
+          class="section-circle__img-left"
+          role="img"
+          aria-label="Modelo Glevis"
+          style="background-image:url('assets/glvs24.jpg')"
+        ></div>
+
+        <h2 id="circle-title" class="section-circle__title">Faça parte do nosso círculo antes
+mesmo de começarmos.</h2>
+
+        <p class="section-circle__subtitle">Nós acreditamos que vestir-se bem é sentir-se bem</p>
+
+        <article class="benefits" aria-label="Benefícios da lista VIP">
+          <h3 class="benefits__title">O que você ganha ao se inscrever
+na lista VIP de Pré-Save hoje:</h3>
+
+          <ul class="benefits__list">
+            <li class="benefit">
+              <img class="benefit__icon" src="assets/clock.png" alt="" aria-hidden="true" />
+              <span>Acesso Antecipado</span>
+            </li>
+            <li class="benefit">
+              <!-- eye glyph -->
+              <svg class="benefit__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" stroke="currentColor" stroke-width="1.6"/>
+                <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6"/>
+              </svg>
+              <span>Spoilers Exclusivos</span>
+            </li>
+            <li class="benefit">
+              <!-- users glyph -->
+              <svg class="benefit__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle cx="9" cy="9" r="3.2" stroke="currentColor" stroke-width="1.6"/>
+                <circle cx="17" cy="10" r="2.4" stroke="currentColor" stroke-width="1.6"/>
+                <path d="M3 19c.7-3 3.3-4.6 6-4.6S14.3 16 15 19" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                <path d="M15.5 19c.5-2.2 2.2-3.4 4-3.4s3.5 1.2 4 3.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              </svg>
+              <span>Comunidade GLEVIS</span>
+            </li>
+          </ul>
+        </article>
+
+        <div
+          class="section-circle__img-right"
+          role="img"
+          aria-label="Modelo Glevis"
+        ></div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 2 — formulário VIP
+         ============================================================ -->
+    <section class="section-form" aria-labelledby="vip-title">
+      <div class="section__layer">
+        <div
+          class="section-form__img"
+          role="img"
+          aria-label="Editorial Glevis"
+        ></div>
+
+        <div class="form-block">
+          <h2 id="vip-title" class="form-block__title">O movimento está
+prestes a começar.
+Você vem?</h2>
+        </div>
+
+        <form class="vip-form" novalidate>
+          <label class="vip-input vip-input--with-label">
+            <span class="vip-input__label">Nome:</span>
+            <input
+              class="vip-input__field"
+              type="text"
+              name="nome"
+              required
+              placeholder="Como você gosta de ser chamada?"
+              autocomplete="given-name"
+            />
+          </label>
+
+          <label class="vip-input vip-input--with-label">
+            <span class="vip-input__label">Email:</span>
+            <input
+              class="vip-input__field"
+              type="email"
+              name="email"
+              required
+              placeholder="Para onde enviamos o seu convite VIP?"
+              autocomplete="email"
+            />
+          </label>
+
+          <label class="vip-input vip-input--with-label">
+            <span class="vip-input__label">WhatsApp:</span>
+            <input
+              class="vip-input__field"
+              type="tel"
+              name="whatsapp"
+              placeholder="Para avisos em tempo real"
+              autocomplete="tel"
+            />
+          </label>
+
+          <button class="vip-form__cta" type="submit" style="justify-content: center">
+            Garantir&nbsp; MEU acesso VIP!
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         FOOTER
+         ============================================================ -->
+    <footer class="footer">
+      <div class="footer__layer">
+        <img class="footer__logo" src="assets/logo-footer.svg" alt="Glevis" />
+
+        <p class="footer__tagline">Sinta-se bem. Mexa-se com propósito.
+Estilo que acompanha seu ritmo.</p>
+
+        <div class="footer__socials" aria-label="Redes sociais">
+          <a href="#" aria-label="Instagram">
+            <img src="assets/instagram.png" alt="Instagram" loading="lazy" />
+          </a>
+          <a href="#" aria-label="WhatsApp">
+            <img src="assets/whatsapp.png" alt="WhatsApp" loading="lazy" />
+          </a>
+        </div>
+
+        <p class="footer__copyright">GLEVIS © 2026. Todos os direitos reservados. Vista o movimento.</p>
+      </div>
+    </footer>
+
+  </main>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

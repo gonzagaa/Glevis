@@ -1,0 +1,944 @@
+/* ============================================================
+   GLEVIS — Landing Page
+   Tokens extracted from Figma "DESKTOP" frame (1920×3107)
+   ============================================================ */
+
+:root {
+  /* Colors (from Figma) */
+  --color-bg:            #CBCBCB;             /* page bg */
+  --color-ink:           rgb(27, 27, 27);     /* primary text / dark surfaces */
+  --color-ink-2:         rgb(59, 59, 59);     /* gradient stop */
+  --color-ink-3:         rgb(52, 52, 52);
+  --color-paper:         rgb(251, 251, 251);  /* on-dark text */
+  --color-mute:          rgb(203, 203, 203);  /* muted on-dark text */
+  --color-white:         rgb(255, 255, 255);
+  --color-tan-1:         rgb(212, 196, 171);
+  --color-tan-2:         rgb(203, 171, 142);
+
+  /* Type */
+  --font-display: "Manrope", "TT Fors Trial", "Helvetica Neue", Arial, sans-serif;
+
+  /* Type sizes (Figma raw → rounded) */
+  --fs-hero:        53px;   /* 52.86 */
+  --fs-section:     49px;   /* 48.57 */
+  --fs-subsection:  37px;   /* 36.59 */
+  --fs-card-title:  35px;   /* 35.04 */
+  --fs-pill:        30px;   /* 29.97 */
+  --fs-button:      29px;   /* 29.40 */
+  --fs-input:       27px;   /* 26.86 */
+
+  /* Effects */
+  --radius-card:    16.5px;
+  --radius-pill:    16px;     /* 16.05 */
+  --letter-tight:   -0.07em;
+  --line-tight:     1.0025;
+  --gradient-dark:  linear-gradient(90deg, rgb(27,27,27) 0%, rgb(59,59,59) 100%);
+
+  /* Layout — 1920 base, fluid down to 1440 and up to 1920 */
+  --canvas:         1920;
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  /* Fluid scaling: 1px-in-design ≈ scales between ~1440 and 1920 viewports */
+  font-size: 16px;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-display);
+  background: var(--color-bg);
+  font-feature-settings: "ss01", "ss02";
+  letter-spacing: var(--letter-tight);
+  line-height: var(--line-tight);
+  overflow-x: hidden;
+}
+
+img { display: block; max-width: 100%; }
+button { font: inherit; border: 0; cursor: pointer; background: transparent; color: inherit; }
+a { color: inherit; text-decoration: none; }
+
+/* ============================================================
+   PAGE WRAPPER — fluid scale based on 1920 design width
+   ============================================================ */
+.page {
+  width: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
+  background: var(--color-bg);
+  position: relative;
+}
+
+/* Helper: convert design-px to fluid units.
+   At 1920 viewport the scale is 1; at 1440 it's 0.75. We use
+   clamp() with vw so the entire layout scales proportionally. */
+.page {
+  /* fluid scaling of the whole layout */
+  --scale: clamp(0.75, 100vw / 1920, 1);
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1920 / 900;
+  background: var(--color-bg);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.95;
+  mix-blend-mode: luminosity;
+  z-index: 0;
+  pointer-events: none;
+  -webkit-mask-image:
+    linear-gradient(to bottom, #000 0%, #000 55%, rgba(0,0,0,0.6) 80%, rgba(0,0,0,0) 100%);
+          mask-image:
+    linear-gradient(to bottom, #000 0%, #000 55%, rgba(0,0,0,0.6) 80%, rgba(0,0,0,0) 100%);
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+          mask-size: 100% 100%;
+
+          opacity: .6;
+}
+
+.hero__content {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+/* All children use design-px positions multiplied by --scale.
+   We keep px values readable; scale via transform on a sized layer. */
+.hero__layer,
+.section__layer,
+.footer__layer {
+  position: absolute;
+  inset: 0;
+  width: 1920px;
+  height: 100%;
+  transform-origin: top left;
+  transform: scale(var(--scale));
+}
+
+.hero__headline {
+  position: absolute;
+  left: 1246px;
+  top: 287px;
+  width: 498px;
+  font-size: var(--fs-hero);
+  font-weight: 400;
+  text-align: right;
+  color: var(--color-ink);
+  white-space: pre-line;
+  line-height: var(--line-tight);
+  letter-spacing: var(--letter-tight);
+  margin: 0;
+}
+.hero__headline strong { font-weight: 700; }
+
+.hero__cta {
+  position: absolute;
+  left: 1257px;
+  top: 444px;
+  width: 488px;
+  height: 60px;
+  border-radius: var(--radius-pill);
+  background: var(--gradient-dark);
+  color: var(--color-paper);
+  font-size: var(--fs-button);
+  font-weight: 500;
+  text-align: right;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  letter-spacing: var(--letter-tight);
+  transition: transform .25s ease, box-shadow .25s ease, filter .25s ease;
+  box-shadow: 0 12px 28px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.04);
+}
+.hero__cta:hover { transform: translateY(-2px); filter: brightness(1.08); }
+.hero__cta:active { transform: translateY(0); filter: brightness(.95); }
+
+.hero__logo {
+  position: absolute;
+  left: 1556.65px;
+  top: 588px;
+  width: 188.35px;
+  height: auto;
+}
+
+/* ============================================================
+   SECTION 1 — círculo / pré-save
+   Positioned as an absolute layer 853px tall, plus titles outside
+   ============================================================ */
+.section-circle {
+  position: relative;
+  width: 100%;
+  background: var(--color-bg);
+  /* design height for this band: 853 + the offset before next section */
+  aspect-ratio: 1920 / 887;
+  overflow: hidden;
+  color: var(--color-ink);
+}
+
+.section-circle .section__layer {
+  /* original frame "1" sat at left:-131, top:947 within full canvas */
+  /* we'll compose it relative to the section's own top */
+  width: 1920px;
+  height: 100%;
+}
+
+/* big watermark logo */
+.watermark {
+  position: absolute;
+  left: -67px;       /* -131 + 64 */
+  top: 351px;
+  width: 2055px;
+  height: 502px;
+  opacity: 0.05;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* left and right model imagery */
+.section-circle__img-left {
+  position: absolute;
+  left: -131px;
+  top: 0;
+  width: 553px;
+  height: 602px;
+  border-radius: var(--radius-card);
+  background: url("./assets/glvs24.jpg") center / cover no-repeat #2a2a2a;
+}
+.section-circle__img-right {
+  position: absolute;
+  left: 1466px;     /* 1597 - 131 */
+  top: 234px;
+  width: 553px;
+  height: 578px;
+  border-radius: var(--radius-card);
+  background: url("./assets/glvs67.jpg") center / cover no-repeat #2a2a2a;
+}
+
+/* Center column between left/right images.
+   Left image occupies 0..422 (553w starting at -131), right image
+   sits at 1466..2019 (553w). Center the column on the page (x=960). */
+.section-circle__title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 84px;
+  width: 685px;
+  margin: 0;
+  font-size: var(--fs-section);
+  font-weight: 600;
+  text-align: center;
+  color: var(--color-ink);
+  white-space: pre-line;
+  line-height: var(--line-tight);
+  letter-spacing: var(--letter-tight);
+}
+.section-circle__subtitle {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 213px;
+  width: 751px;
+  margin: 0;
+  font-size: var(--fs-subsection);
+  font-weight: 400;
+  text-align: center;
+  color: var(--color-ink);
+  letter-spacing: var(--letter-tight);
+}
+
+/* benefits card */
+.benefits {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 315px;
+  width: 720px;
+  height: 382px;
+  border-radius: var(--radius-pill);
+  background: var(--gradient-dark);
+  color: var(--color-paper);
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.04);
+}
+.benefits__title {
+  position: absolute;
+  left: 110px;
+  top: 41px;
+  width: 501px;
+  margin: 0;
+  font-size: var(--fs-card-title);
+  font-weight: 500;
+  text-align: center;
+  color: var(--color-paper);
+  white-space: pre-line;
+  letter-spacing: var(--letter-tight);
+  line-height: var(--line-tight);
+}
+.benefits__list {
+  position: absolute;
+  left: 171px;       /* (720 - 378) / 2 */
+  top: 175px;
+  width: 378px;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  list-style: none;
+}
+.benefit {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  width: 378px;
+  height: 49px;
+  border-radius: var(--radius-pill);
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-size: var(--fs-pill);
+  font-weight: 500;
+  letter-spacing: var(--letter-tight);
+}
+.benefit__icon {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  filter: brightness(0) invert(1) opacity(0.85);
+}
+.benefit__icon--eye,
+.benefit__icon--users {
+  /* fallback inline icons via CSS (see SVG in HTML) */
+}
+
+/* ============================================================
+   SECTION 2 — formulário VIP
+   Original frame "2": full-width 1756, top-left at (0, 1834)
+   height 1164. Big left image + right form.
+   ============================================================ */
+.section-form {
+  position: relative;
+  width: 100%;
+  background: var(--color-bg);
+  aspect-ratio: 1920 / 1164;
+  overflow: hidden;
+}
+
+.section-form__img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 963px;
+  height: 1164px;
+  border-radius: var(--radius-card);
+  background: url("./assets/glvs133.jpg") center / cover no-repeat #2a2a2a;
+}
+
+.form-block {
+  position: absolute;
+  left: 1367px;
+  top: 213px;
+  width: 389px;
+}
+
+.form-block__title {
+  width: 389px;
+  margin: 0 0 32px 0;
+  font-size: var(--fs-section);
+  font-weight: 500;
+  text-align: right;
+  color: var(--color-ink);
+  white-space: pre-line;
+  letter-spacing: var(--letter-tight);
+  line-height: var(--line-tight);
+}
+
+.vip-form {
+  position: absolute;
+  /* stack of 3 inputs starting around top 460 */
+  left: 1155px;       /* 1756 - 601 */
+  top: 460px;
+  width: 601px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+  box-shadow: 0 0 0 1000px transparent inset !important;
+  -webkit-text-fill-color: #111 !important;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+.vip-input {
+  position: relative;
+  width: 601px;
+  height: 49px;
+  border-radius: var(--radius-pill);
+  background: rgba(27,27,27,0.10);
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  align-items: center;
+  padding: 0 29px;
+  gap: 8px;
+}
+.vip-input__label {
+  font-size: var(--fs-input);
+  font-weight: 400;
+  color: var(--color-ink);
+  letter-spacing: var(--letter-tight);
+  white-space: nowrap;
+}
+.vip-input__field {
+  border: 0;
+  background: transparent;
+  outline: none;
+  font-family: inherit;
+  font-size: var(--fs-input);
+  font-weight: 300;
+  color: var(--color-ink);
+  letter-spacing: var(--letter-tight);
+  text-align: center;
+  width: 100%;
+}
+.vip-input__field::placeholder {
+  color: rgba(27,27,27,0.35);
+  font-weight: 300;
+}
+.vip-input--with-label {
+  grid-template-columns: max-content 1fr;
+}
+
+.vip-form__cta {
+  align-self: flex-end;
+  margin-top: 30px;
+  width: 424px;
+  height: 60px;
+  border-radius: var(--radius-pill);
+  background: var(--gradient-dark);
+  color: var(--color-paper);
+  font-size: var(--fs-button);
+  font-weight: 500;
+  text-align: right;
+  padding: 0 26px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  letter-spacing: var(--letter-tight);
+  transition: transform .25s ease, filter .25s ease;
+  box-shadow: 0 12px 28px rgba(0,0,0,.45);
+}
+.vip-form__cta:hover { transform: translateY(-2px); filter: brightness(1.1); }
+.vip-form__cta:active { transform: translateY(0); }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer {
+  position: relative;
+  width: 100%;
+  background: var(--gradient-dark);
+  aspect-ratio: 1920 / 294;
+  overflow: hidden;
+  color: var(--color-paper);
+}
+
+.footer__layer {
+  width: 1920px;
+  height: 100%;
+  transform: scale(var(--scale));
+  transform-origin: top left;
+  position: absolute;
+  inset: 0;
+}
+
+.footer__logo {
+  position: absolute;
+  left: 447px;     /* 521 - 74 */
+  top: 103px;
+  width: 154px;
+  height: 38px;
+  filter: invert(1);
+}
+.footer__tagline {
+  position: absolute;
+  left: 751px;     /* 825 - 74 */
+  top: 89px;
+  width: 418px;
+  margin: 0;
+  font-size: var(--fs-input);
+  font-weight: 300;
+  text-align: center;
+  color: var(--color-paper);
+  white-space: pre-line;
+  letter-spacing: var(--letter-tight);
+  line-height: var(--line-tight);
+}
+.footer__socials {
+  position: absolute;
+  left: 1319px;     /* 1393 - 74 */
+  top: 102px;
+  width: 92px;
+  height: 40px;
+  display: flex;
+  gap: 12px;
+}
+.footer__socials a {
+  width: 40px;
+  height: 40px;
+  display: block;
+  filter: brightness(0) invert(1) opacity(0.95);
+  transition: transform .2s ease, opacity .2s ease;
+}
+.footer__socials a:hover { transform: scale(1.06); opacity: 1; }
+
+.footer__copyright {
+  position: absolute;
+  left: 618px;     /* 692 - 74 */
+  top: 216px;
+  width: 684px;
+  margin: 0;
+  font-size: var(--fs-input);
+  font-weight: 300;
+  text-align: center;
+  color: var(--color-paper);
+  opacity: 0.4;
+  letter-spacing: var(--letter-tight);
+}
+
+/* ============================================================
+   RESPONSIVE — desktop only (1440 → 1920)
+   Below 1440 we still scale via --scale clamp, which keeps
+   the layout proportional. Per spec we're not styling mobile.
+   ============================================================ */
+@media (max-width: 1439px) {
+  /* scale floor already handled by clamp; nothing to add here */
+}
+
+/* Disable smoothing artifacts on transformed layers */
+.hero__layer,
+.section__layer,
+.footer__layer {
+  backface-visibility: hidden;
+}
+
+/* ============================================================
+   MOBILE / TABLET — fluid layout below 1024px
+   Desktop (1440px / 1600px / 1920px) is intentionally untouched.
+   ============================================================ */
+@media (max-width: 1023px) {
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  /* Disable the canvas/scale system on small viewports */
+  .hero__layer,
+  .section__layer,
+  .footer__layer {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: auto;
+    transform: none;
+    backface-visibility: visible;
+  }
+
+  /* ----- HERO ----- */
+  .hero {
+    aspect-ratio: auto;
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+  }
+  .hero__video {
+    object-position: 60% center;
+    opacity: 0.55;
+    -webkit-mask-image:
+      linear-gradient(to bottom, #000 0%, #000 65%, rgba(0,0,0,0.55) 88%, rgba(0,0,0,0) 100%);
+            mask-image:
+      linear-gradient(to bottom, #000 0%, #000 65%, rgba(0,0,0,0.55) 88%, rgba(0,0,0,0) 100%);
+  }
+  .hero__content {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100svh;
+    padding: clamp(72px, 14vh, 140px) 22px clamp(40px, 8vh, 72px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: clamp(18px, 4vw, 26px);
+    text-align: center;
+  }
+  .hero__headline {
+    position: relative;
+    inset: auto;
+    left: auto;
+    top: auto;
+    transform: none;
+    width: min(100%, 460px);
+    margin: 0;
+    text-align: center;
+    font-size: clamp(28px, 8.2vw, 40px);
+    line-height: 1.05;
+  }
+  .hero__cta {
+    position: relative;
+    inset: auto;
+    left: auto;
+    top: auto;
+    width: min(100%, 330px);
+    height: 56px;
+    text-align: center;
+    font-size: clamp(16px, 4.4vw, 19px);
+    padding: 0 24px;
+  }
+  .hero__logo {
+    position: relative;
+    inset: auto;
+    left: auto;
+    top: auto;
+    width: clamp(140px, 40vw, 180px);
+    height: auto;
+    margin: clamp(2px, 1vw, 8px) auto 0;
+  }
+
+  /* ----- SECTION 1 — círculo ----- */
+  .section-circle {
+    aspect-ratio: auto;
+    height: auto;
+    padding: clamp(56px, 11vw, 88px) 0 clamp(48px, 10vw, 80px);
+  }
+  .section-circle .section__layer {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: auto;
+    transform: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(20px, 5vw, 32px);
+    padding: 0 20px;
+  }
+
+  /* Editorial mobile order: img-left (top) → title → subtitle → card → img-right (bottom).
+     Watermark stays as background (absolute, no order needed). */
+  .section-circle__img-left  { order: 1; }
+  .section-circle__title     { order: 2; }
+  .section-circle__subtitle  { order: 3; }
+  .benefits                  { order: 4; }
+  .section-circle__img-right { order: 5; }
+
+  .watermark {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: min(100%, 480px);
+    max-width: 100%;
+    height: auto;
+    opacity: 0.05;
+    z-index: 0;
+  }
+  .section-circle__title {
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: none;
+    width: 100%;
+    max-width: 340px;
+    margin-inline: auto;
+    /* Let the browser balance lines; desktop kept its explicit \n via pre-line */
+    white-space: normal;
+    text-wrap: balance;
+    font-size: clamp(28px, 7.6vw, 36px);
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+    z-index: 1;
+  }
+  .section-circle__subtitle {
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: none;
+    width: 100%;
+    max-width: 480px;
+    font-size: clamp(18px, 5.5vw, 26px);
+    z-index: 1;
+  }
+  .benefits {
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: none;
+    width: 100%;
+    max-width: 480px;
+    height: auto;
+    padding: clamp(28px, 6vw, 40px) clamp(20px, 5vw, 28px) clamp(28px, 6vw, 36px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(18px, 4vw, 26px);
+    z-index: 1;
+  }
+  .benefits__title {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+    text-align: center;
+    font-size: clamp(20px, 5.5vw, 26px);
+  }
+  .benefits__list {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+    align-items: center;
+    gap: 10px;
+  }
+  .benefit {
+    width: 100%;
+    max-width: 320px;
+    height: 48px;
+    font-size: clamp(16px, 4.4vw, 22px);
+    padding: 0 16px;
+  }
+  .section-circle__img-left,
+  .section-circle__img-right {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+    max-width: 360px;
+    margin-inline: auto;
+    z-index: 1;
+  }
+  /* Visual rhythm: top image more delicate, bottom image anchors the section */
+  .section-circle__img-left {
+    height: clamp(260px, 62vw, 340px);
+    margin-bottom: clamp(8px, 2vw, 16px);
+    background-position: center 22%;
+  }
+  .section-circle__img-right {
+    height: clamp(320px, 82vw, 420px);
+    margin-top: clamp(8px, 2vw, 16px);
+    background: url("./assets/glvs67.jpg") center 30% / cover no-repeat #2a2a2a;
+  }
+
+  /* ----- SECTION 2 — formulário ----- */
+  .section-form {
+    aspect-ratio: auto;
+    height: auto;
+  }
+  .section-form .section__layer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(28px, 6vw, 40px);
+    padding: 0 0 clamp(56px, 10vw, 80px);
+  }
+  .section-form__img {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+    height: clamp(360px, 85vw, 520px);
+    border-radius: 0;
+    background-position: center 25%;
+  }
+  .form-block {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+    max-width: 480px;
+    padding: 0 20px;
+  }
+  .form-block__title {
+    width: 100%;
+    margin: 0;
+    text-align: center;
+    font-size: clamp(28px, 7.5vw, 38px);
+  }
+  .vip-form {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+    max-width: 480px;
+    padding: 0 20px;
+    gap: 14px;
+  }
+  .vip-input {
+    width: 100%;
+    height: 56px;
+    padding: 0 22px;
+    grid-template-columns: max-content 1fr;
+    gap: 10px;
+  }
+  .vip-input__label {
+    font-size: clamp(15px, 4.2vw, 19px);
+  }
+  .vip-input__field {
+    font-size: clamp(15px, 4.2vw, 19px);
+    text-align: left;
+  }
+  .vip-form__cta {
+    align-self: center;
+    width: min(100%, 360px);
+    height: 56px;
+    text-align: center;
+    font-size: clamp(16px, 4.4vw, 19px);
+    padding: 0 24px;
+    margin-top: 12px;
+  }
+
+  /* ----- FOOTER ----- */
+  .footer {
+    aspect-ratio: auto;
+    height: auto;
+  }
+  .footer__layer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(16px, 4vw, 24px);
+    padding: clamp(36px, 8vw, 56px) 20px;
+    text-align: center;
+  }
+  .footer__logo {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: clamp(120px, 30vw, 160px);
+    height: auto;
+  }
+  .footer__tagline {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+    max-width: 360px;
+    font-size: clamp(14px, 3.8vw, 17px);
+  }
+  .footer__socials {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: auto;
+    height: auto;
+    gap: 16px;
+  }
+  .footer__socials a {
+    width: 36px;
+    height: 36px;
+  }
+  .footer__copyright {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+    max-width: 480px;
+    font-size: clamp(11px, 3vw, 13px);
+    margin-top: clamp(4px, 2vw, 12px);
+  }
+}
+
+/* ============================================================
+   MOBILE — section "círculo VIP": tightened mobile layout (≤ 767px)
+   Targets the bug where the section was still anchored to the
+   1920px desktop canvas. Pure mobile-only refinements.
+   ============================================================ */
+@media (max-width: 767px) {
+  .section-circle { overflow: hidden; }
+
+  /* Watermark: subtle, never overflows the viewport */
+  .watermark {
+    width: min(110%, 460px);
+    max-width: 100%;
+    opacity: 0.05;
+  }
+
+  /* Card: tighter mobile width */
+  .benefits {
+    max-width: 360px;
+    margin-inline: auto;
+  }
+  .benefit {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  /* Editorial images: keep them contained at small viewports.
+     Heights are differentiated in the 1023px block to create rhythm
+     (top image lighter, bottom image anchors the section). */
+  .section-circle__img-left,
+  .section-circle__img-right {
+    max-width: 340px;
+    margin-inline: auto;
+  }
+
+  /* Title — tighter for narrow phones */
+  .section-circle__title {
+    max-width: 300px;
+  }
+
+  /* Subtle vertical rhythm between the editorial blocks */
+  .section-circle .section__layer { gap: clamp(22px, 6vw, 32px); }
+  .section-circle__img-left  { margin-bottom: clamp(10px, 3vw, 18px); }
+  .section-circle__img-right { margin-top: clamp(10px, 3vw, 18px); }
+}
+
+/* Fine tuning for very small phones */
+@media (max-width: 390px) {
+  .hero__content { padding-left: 18px; padding-right: 18px; gap: 16px; }
+  .hero__headline { font-size: clamp(26px, 8vw, 32px); }
+  .vip-input { padding: 0 18px; }
+  .vip-input__label { font-size: 15px; }
+  .vip-input__field { font-size: 15px; }
+  .benefit { font-size: 16px; }
+}
+
+@media (max-width: 360px) {
+  .hero__headline { font-size: 26px; }
+  .section-circle__title { font-size: 28px; }
+  .form-block__title { font-size: 26px; }
+}
